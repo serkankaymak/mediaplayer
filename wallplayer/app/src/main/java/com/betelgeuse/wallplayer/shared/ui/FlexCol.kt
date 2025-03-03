@@ -2,6 +2,7 @@ package com.betelgeuse.wallplayer.shared.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -32,7 +33,7 @@ fun FlexCol(
 @Preview(name = "FlexCol", showBackground = true)
 @Composable
 fun PreviewFlexCol() {
-    FlexCol(gap = 8.dp) {
+    FlexCol(modifier = Modifier.fillMaxWidth().fillMaxHeight(), gap = 15.dp) {
         Button(onClick = {}) {
             Text(text = "Button 1")
         }

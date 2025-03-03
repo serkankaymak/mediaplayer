@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import com.betelgeuse.wallplayer.ui.components.FileItemView
 import androidx.compose.ui.tooling.preview.Preview
 
-// Veri modeli
+
 data class FileItem(
     val id: Int,
     val name: String,

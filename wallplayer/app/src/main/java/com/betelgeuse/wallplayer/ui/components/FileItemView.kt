@@ -2,6 +2,7 @@ package com.betelgeuse.wallplayer.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,22 +28,24 @@ import com.betelgeuse.wallplayer.shared.ui.FlexRow
 fun FileItemView(
     modifier: Modifier = Modifier,
     isSelectingState: Boolean = false,
-    isGrid: Boolean
-
+    isGrid: Boolean,
+    onClick: () -> Unit = {},
+    onOptionClick: () -> Unit = {}
 ) {
     if (!isGrid) {
         Box(
             modifier = modifier
                 .fillMaxWidth()
                 .padding(5.dp)
-                .background(Color.Transparent), Alignment.Center
+                .clickable(onClick = onClick)
+                .background(Color.Transparent),
+            contentAlignment = Alignment.Center
         ) {
             FlexRow(
-                modifier = Modifier
-                    .fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                FlexRow() {
+                FlexRow {
                     Image(
                         painter = painterResource(id = R.drawable.video_file),
                         contentDescription = "Video",
@@ -64,25 +67,29 @@ fun FileItemView(
                         )
                     }
                     if (!isSelectingState) {
-                        IconButton(onClick = {}) {
+                        IconButton(onClick = onOptionClick) {
                             Image(
                                 painter = painterResource(id = R.drawable.more_vert_24),
                                 contentDescription = "Video"
                             )
                         }
                     }
-
                 }
             }
         }
     } else {
-        Box(modifier = modifier
-            .fillMaxWidth()
-            .padding(5.dp), Alignment.Center) {
-            FlexCol() {
+        Box(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(5.dp)
+                .clickable(onClick = onClick),
+            contentAlignment = Alignment.Center
+        ) {
+            FlexCol {
                 FlexRow(
                     modifier = Modifier.fillMaxWidth(),
-                    Arrangement.Center
+                    gap = 0.dp,
+                    horizontalArrangement = Arrangement.Center
                 ) {
                     FlexCol(gap = 15.dp) {
                         Box(modifier = Modifier.wrapContentSize()) {
@@ -93,7 +100,7 @@ fun FileItemView(
                             )
                             if (!isSelectingState) {
                                 IconButton(
-                                    onClick = {},
+                                    onClick = onOptionClick,
                                     modifier = Modifier.align(Alignment.TopEnd)
                                 ) {
                                     Image(
@@ -102,7 +109,6 @@ fun FileItemView(
                                     )
                                 }
                             }
-
                             if (isSelectingState) {
                                 Checkbox(
                                     modifier = Modifier.align(Alignment.TopEnd),
@@ -122,18 +128,16 @@ fun FileItemView(
             }
         }
     }
-
 }
-
 
 @Preview(name = "VideoView - Grid", showBackground = true)
 @Composable
 private fun PreviewVideoViewGrid() {
-    FileItemView(isGrid = false)
+    FileItemView(isGrid = false, onClick = { /* onClick action */ })
 }
 
 @Preview(name = "VideoView - List", showBackground = true)
 @Composable
 private fun PreviewVideoViewList() {
-    FileItemView(isGrid = true)
+    FileItemView(isGrid = true, onClick = { /* onClick action */ })
 }
